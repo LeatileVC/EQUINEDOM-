@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="icon" href="equineicon.png">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="Logocrown.png" alt="EquineDom Logo" height="40" class="d-inline-block align-top me-2">
+                EquineDom
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="services.html">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="feedback.html">Feedback</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <h1 class="text-center mb-5">Your Feedback Matters</h1>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="feedbackForm">
+    <div class="mb-3">
+        <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+        <div class="invalid-feedback">Please enter your name</div>
+    </div>
+    <div class="mb-3">
+        <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+        <div class="invalid-feedback">Please enter a valid email</div>
+    </div>
+    <div class="mb-3">
+        <textarea class="form-control" id="message" rows="3" placeholder="Your Feedback" required></textarea>
+        <div class="invalid-feedback">Please enter your feedback</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+                        
+                        <div id="successMessage" class="alert alert-success mt-3 d-none">
+                            Thank you for your feedback! Your message has been sent successfully.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+     <!-- Thank You Modal -->
+    <div class="modal fade thank-you-modal" id="thankYouModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center border-0">
+                    <div class="w-100 text-center">
+                        <div class="thank-you-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <h2 class="mb-3">Thank You!</h2>
+                    <p class="lead">Your feedback has been received.</p>
+                    <p>We appreciate you taking the time to share your thoughts with us.</p>
+                    <div class="mt-4">
+                        <p class="text-muted small">Reference: <span id="feedbackReference">FD-<script>document.write(new Date().getTime())</script></span></p>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 justify-content-center">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Return to Site</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--Footer-->
+     <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <img src="Logocrown.png" alt="EquineDom Logo" height="40" class="mb-3">
+            <p>572 Kenna Farms, Mabutsane, Botswana</p>
+            <p>Email: EquineDom@gmail.com</p>
+            <p>&copy; 2023 EquineDom. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Form submission handler
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            const form = e.target;
+            if (!form.checkValidity()) {
+                e.stopPropagation();
+                form.classList.add('was-validated');
+                return;
+            }
+            
+            // If form is valid, show modal
+            const modal = new bootstrap.Modal(document.getElementById('thankYouModal'));
+            modal.show();
+            
+            // Reset form
+            form.reset();
+            form.classList.remove('was-validated');
+            
+            // In a real application, you would add AJAX code here to submit the form data
+            // For example:
+            // const formData = new FormData(form);
+            // fetch('/submit-feedback', { method: 'POST', body: formData })
+            //     .then(response => response.json())
+            //     .then(data => { modal.show(); })
+            //     .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
